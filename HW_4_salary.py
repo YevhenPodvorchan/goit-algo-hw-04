@@ -6,12 +6,12 @@ def total_salary(path):
         for line in file:
             try:
                 name, salary = line.strip().split(',') # розділення рядка на ім'я та зарплату
-                sum_salary += int(salary)
+                sum_salary += float(salary)
                 count += 1
             except ValueError:   # вийняток для некоректних данних
                 print(f"Некоректно введені дані: {line.strip()}")
 
-    average_salary = int(sum_salary / count if count > 0 else 0) # розрахунок середньої зарплати
+    average_salary = float(sum_salary / count if count > 0 else 0) # розрахунок середньої зарплати
 
     return sum_salary, average_salary
 
