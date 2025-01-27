@@ -7,7 +7,10 @@ def parse_input(user_input):
 
 
 # функція для додавання контакту
-def add_contact(contacts, name, phone):
+def add_contact(contacts, *args):
+    if len(args) != 2:  # перевірка кількості аргументів
+        return("Invalid format. Use: add [name] [phone]")
+    name, phone  = args
     if name in contacts:
         return f"Contact {name} already exists."
     contacts[name] = phone
@@ -15,15 +18,21 @@ def add_contact(contacts, name, phone):
 
 
 # функція для зміни номера контакту
-def change_contact(contacts, name, phone):
+def change_contact(contacts, *args):
+    if len(args) != 2:
+        return f"Invalid format. Use: change [name] [new phone]"
+    name, phone = args
     if name not in contacts:
-        return f"Contact {name} not found."
+            return f"Contact {name} not found."
     contacts[name] = phone
     return "Contact updated."
 
 
 # функція поверненя номера вказаного контакту
-def show_phone(contacts, name):
+def show_phone(contacts, *args):
+    if len(args) != 1:
+        return "Invalid format. Use: phone [name]"
+    name = args[0]
     if name not in contacts:
         return f"Contact {name} not found."
     return contacts[name]
@@ -49,20 +58,11 @@ def main():
         if command == "hello":
             print("How can I help you?")
         elif command == "add":
-            if len(args) == 2:
-                print(add_contact(contacts, args[0], args[1]))
-            else:
-                print("Invalid format. Use: add [name] [phone]")
+            print(add_contact(contacts,*args))
         elif command == "change":
-            if len(args) == 2:
-                print(change_contact(contacts, args[0], args[1]))
-            else:
-                print("Invalid format. Use: change [name] [new phone]")
+            print(change_contact(contacts,*args))
         elif command == "phone":
-            if len(args) == 1:
-                print(show_phone(contacts, args[0]))
-            else:
-                print("Invalid format. Use: phone [name]")
+                print(show_phone(contacts,*args))
         elif command == "all":
             print(show_all(contacts))
         elif command in ("exit", "close"):
